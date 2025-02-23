@@ -1,0 +1,43 @@
+#version: '3.8'
+
+services:
+  database:
+    image: postgres:latest
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: taskmanager
+      POSTGRES_DB: taskmanager
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/database.sql:/docker-entrypoint-initdb.d/database.sql
+
+  backend:
+    build: ./tmbackend
+    container_name: backend_service
+    depends_on:
+      - database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/taskmanager
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: taskmanager
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./tmfrontend
+    ports:
+      - "4200:4200"
+    container_name: frontend_service
+    depends_on:
+      - backend
+    volumes:
+      - ./tmfrontend:/app
+      - /app/node_modules
+    restart: always
+
+volumes:
+  postgres_data:
