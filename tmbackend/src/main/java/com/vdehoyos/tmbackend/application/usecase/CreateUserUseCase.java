@@ -9,21 +9,20 @@ import com.vdehoyos.tmbackend.domain.repository.RoleRepository;
 import com.vdehoyos.tmbackend.domain.repository.UserRepository;
 import com.vdehoyos.tmbackend.presentation.mapper.UserMapper;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class CreateUserUseCase {
 	
 	private final UserRepository repository;
 	private final RoleRepository roleRepository;
-
-	public CreateUserUseCase(UserRepository repository, RoleRepository roleRepository) {
-		this.repository = repository;
-		this.roleRepository = roleRepository;
-	}
+	private final UserMapper userMapper;
 	
 	public User execute(CreateUserDTO dto) {
 		Role role = roleRepository.findById(dto.getRoleId())
 				.orElseThrow(() -> new RuntimeException("El rol no existe"));
 		
-		User user = UserMapper.INSTANCE.toDomain(dto);
+		User user = userMapper.toDomain(dto);
         
         user.setCreatedAt(new Date());
         user.setUpdatedAt(new Date());

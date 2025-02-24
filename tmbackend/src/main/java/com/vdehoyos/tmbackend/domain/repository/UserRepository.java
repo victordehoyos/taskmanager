@@ -14,5 +14,6 @@ public interface UserRepository {
 	Optional<User> findById(Long id);
 	List<User> findByRole(Role role);
 	List<User> findAll();
+	User findByEmail(String email);
 
 }
