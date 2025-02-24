@@ -10,5 +10,6 @@ import com.vdehoyos.tmbackend.infraestructure.persistence.entity.UserEntity;
 public interface JpaUserRepository extends JpaRepository<UserEntity, Long> {
 
 	public List<UserEntity> findByRole(RoleEntity entity);
+	public UserEntity findByEmail(String email);
 	
 }

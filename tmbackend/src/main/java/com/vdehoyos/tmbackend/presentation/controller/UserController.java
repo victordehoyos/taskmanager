@@ -20,8 +20,11 @@ import com.vdehoyos.tmbackend.domain.model.User;
 import com.vdehoyos.tmbackend.presentation.mapper.RoleMapper;
 import com.vdehoyos.tmbackend.presentation.mapper.UserMapper;
 
+import lombok.AllArgsConstructor;
+
 @RestController
 @RequestMapping("/users")
+@AllArgsConstructor
 public class UserController {
 	
 	private final CreateUserUseCase createUserUseCase;
@@ -30,14 +33,6 @@ public class UserController {
 	private final UserMapper userMapper;
 	private final RoleMapper roleMapper;
 
-	public UserController(CreateUserUseCase createUserUseCase, UserMapper userMapper, 
-			FindUserByRolUseCase findUserByRolUseCase, FindAllRolesUseCase findAllRolesUseCase, RoleMapper roleMapper) {
-		this.createUserUseCase = createUserUseCase;
-		this.userMapper = userMapper;
-		this.findUserByRolUseCase = findUserByRolUseCase;
-		this.findAllRolesUseCase = findAllRolesUseCase;
-		this.roleMapper = roleMapper;
-	}
 	
 	@PostMapping(path = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> register(@RequestBody CreateUserDTO dto) {

@@ -55,4 +55,9 @@ public class UserRepositoryAdapter implements UserRepository {
 		return userEntityMapper.toDomainList(userEntities);
 	}
 
+	@Override
+	public User findByEmail(String email) {
+		return userEntityMapper.toDomain(jpaUserRepository.findByEmail(email));
+	}
+
 }
