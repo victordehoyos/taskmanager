@@ -1,0 +1,19 @@
+<nb-card>
+    <nb-card-header>
+        <h2>Gestión de Usuarios</h2>
+        <div class="filter-container">
+          <button nbButton status="success" (click)="openCreateUserDialog()" class="add-user-button">+ Registrar Usuario</button>
+          
+          <nb-select placeholder="Filtrar por rol" [(ngModel)]="selectedRoleId" (selectedChange)="filterByRole($event)" class="role-select">
+            <nb-option value="all">Todos los Roles</nb-option>
+            <nb-option *ngFor="let role of rolesList" [value]="role.value">{{ role.title }}</nb-option>
+          </nb-select>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table
+        [settings]="settings"
+        [source]="source">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
