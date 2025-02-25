@@ -29,3 +29,4 @@ CREATE TABLE tasks (
 );
 
 INSERT INTO roles (role_description,role_name) VALUES ('Líder Técnico','Líder Técnico'), ('Desarrollador','Desarrollador');
+INSERT INTO users (name,email, role_id) VALUES ('Admin','admin@admin.com', (Select id From roles where role_name = 'Líder Técnico'));
