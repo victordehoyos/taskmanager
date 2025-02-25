@@ -1,0 +1,23 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .filter-container {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+  }
+  
+  .role-select {
+    min-width: 150px; 
+    max-width: 250px; 
+    width: auto; 
+    flex-grow: 1; 
+  }
+  
+  .add-user-button {
+    margin-left: 10px; 
+  }
+  

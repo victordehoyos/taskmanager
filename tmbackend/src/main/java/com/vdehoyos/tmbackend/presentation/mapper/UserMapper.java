@@ -8,6 +8,7 @@ import org.mapstruct.factory.Mappers;
 
 import com.vdehoyos.tmbackend.application.dto.BaseUserDTO;
 import com.vdehoyos.tmbackend.application.dto.CreateUserDTO;
+import com.vdehoyos.tmbackend.application.dto.LoginResponseDTO;
 import com.vdehoyos.tmbackend.application.dto.UserFindResponseDTO;
 import com.vdehoyos.tmbackend.domain.model.Role;
 import com.vdehoyos.tmbackend.domain.model.User;
@@ -20,6 +21,10 @@ public interface UserMapper {
 	@Mapping(source = "role.id", target = "roleId")
 	public CreateUserDTO toDTO(User domain);
 
+	@Mapping(source = "role.id", target = "roleId")
+	@Mapping(source = "role.name", target = "roleName")
+	public LoginResponseDTO toDTOLogin(User domain);
+	
 	public User toDomain(BaseUserDTO dto);
 	
 	@Mapping(source = "roleId", target = "role")

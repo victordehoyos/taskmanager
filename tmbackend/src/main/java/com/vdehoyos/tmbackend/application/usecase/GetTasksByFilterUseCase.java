@@ -25,9 +25,11 @@ public class GetTasksByFilterUseCase {
         } else if (email != null) {
         	User user = userRepository.findByEmail(email);
             return taskRepository.findByUser(user);
-        } else {
-            return new ArrayList<>();
+        } else if ((status == null || "".equals(status)) && (email == null || "".equals(email))) {
+        	return taskRepository.findAll();
         }
+        
+		return new ArrayList<>();
 		
 	}
 }

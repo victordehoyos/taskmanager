@@ -5,6 +5,7 @@ import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { WebSocketService } from '../../../services/websocket.service';
 
 @Component({
   selector: 'ngx-header',
@@ -15,7 +16,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
-  user: any;
+  user: any = {
+    name: 'User',
+    picture: 'assets/images/person.png',
+    role: 'Admin',
+    email: 'email@email.com',
+    roleId: 0
+  };
+  notifications: string[] = [];
 
   themes = [
     {
@@ -38,22 +46,34 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = 'default';
 
-  userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
+  userMenu = [ { title: 'Log out', link: '/auth/login' } ];
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private themeService: NbThemeService,
               private userService: UserData,
               private layoutService: LayoutService,
-              private breakpointService: NbMediaBreakpointsService) {
+              private breakpointService: NbMediaBreakpointsService,
+              private webSocketService: WebSocketService) {
   }
 
   ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
+    const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
 
-    this.userService.getUsers()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((users: any) => this.user = users.nick);
+    if (storedUser.name) {
+      this.user.name = storedUser.name;
+    }
+    if (storedUser.email) {
+      this.user.email = storedUser.email;
+    }
+    if (storedUser.roleId) {
+      this.user.roleId = storedUser.roleId;
+    }
+
+    this.webSocketService.getTaskUpdates().subscribe((message) => {
+      this.notifications.push(message);
+    });
 
     const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()

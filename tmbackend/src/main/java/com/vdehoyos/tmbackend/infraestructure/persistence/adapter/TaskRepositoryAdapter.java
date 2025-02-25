@@ -89,4 +89,11 @@ public class TaskRepositoryAdapter implements TaskRepository {
 		return taskEntityMapper.toDomainList(jpaTaskRepository.findByStatusAndUser(status, userEntity));
 	}
 
+
+	@Override
+	public List<Task> findAll() {
+		List<TaskEntity> tasks = jpaTaskRepository.findAll();
+		return taskEntityMapper.toDomainList(tasks);
+	}
+
 }
