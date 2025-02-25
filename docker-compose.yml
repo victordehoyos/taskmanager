@@ -20,6 +20,8 @@ services:
       retries: 5
       start_period: 10s
       timeout: 5s
+    networks:
+      - backend
 
   backend:
     build: ./tmbackend
@@ -34,6 +36,9 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
     ports:
       - "8080:8080"
+    networks:
+      backend:
+      frontend:
 
   frontend:
     build: ./tmfrontend
@@ -46,6 +51,11 @@ services:
       - ./tmfrontend:/app
       - /app/node_modules
     restart: always
+    networks:
+      - frontend
 
 volumes:
   postgres_data:
+networks:
+  frontend:
+  backend:

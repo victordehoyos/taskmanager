@@ -15,7 +15,7 @@ export class WebSocketService {
   }
 
   private connect() {
-    const socket = new SockJS('http://backend:8080/ws');
+    const socket = new SockJS('http://localhost:8080/ws');
     this.stompClient = new Client({
       webSocketFactory: () => socket,
       debug: (msg) => console.log(msg),

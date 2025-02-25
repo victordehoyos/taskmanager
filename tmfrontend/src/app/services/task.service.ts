@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TaskService {
-  private apiUrl = 'http://backend:8080/tasks'; 
+  private apiUrl = 'http://localhost:8080/tasks'; 
 
   constructor(private http: HttpClient) {}
 
@@ -31,6 +31,6 @@ export class TaskService {
   }
 
   getUsers(): Observable<any[]> {
-    return this.http.get<any[]>('http://backend:8080/users/all');
+    return this.http.get<any[]>('http://localhost:8080/users/all');
   }
 }
