@@ -1,0 +1,28 @@
+<nb-card>
+    <nb-card-header>
+      <h2>Registrar Usuario</h2>
+    </nb-card-header>
+    <nb-card-body>
+      <form #userForm="ngForm">
+        <div class="form-group">
+          <label>Nombre:</label>
+          <input nbInput fullWidth [(ngModel)]="user.name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label>Correo Electrónico:</label>
+          <input nbInput fullWidth type="email" [(ngModel)]="user.email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label>Rol:</label>
+          <nb-select fullWidth placeholder="Selecciona un rol" [(ngModel)]="user.roleId" name="roleId">
+            <nb-option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</nb-option>
+          </nb-select>
+        </div>
+      </form>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton status="danger" (click)="close()">Cancelar</button>
+      <button nbButton status="success" (click)="save()" [disabled]="!userForm.valid">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+  

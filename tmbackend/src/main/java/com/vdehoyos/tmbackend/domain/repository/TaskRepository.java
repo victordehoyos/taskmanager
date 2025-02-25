@@ -12,5 +12,5 @@ public interface TaskRepository {
 	List<Task> findByStatus(String status);
 	List<Task> findByUser(User user);
 	List<Task> findByStatusAndAssignedUser(String status, String email);
-	
+	List<Task> findAll();
 }

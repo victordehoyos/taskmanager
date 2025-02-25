@@ -1,0 +1,31 @@
+<nb-card>
+    <nb-card-header>
+      <h2>Gestión de Tareas</h2>
+    </nb-card-header>
+  
+    <nb-card-body>
+        <button *ngIf="role === 'Líder Técnico'" nbButton status="success" (click)="openCreateTaskDialog()" class="create-task-button">+ Registrar Tarea</button>
+        
+        <div class="filter-container">
+        <nb-select placeholder="Filtrar por estado" [(ngModel)]="statusFilter" (selectedChange)="filterTasks()" class="role-select">
+          <nb-option value="all">Todos los Estados</nb-option>
+          <nb-option value="Pendiente">Pendiente</nb-option>
+          <nb-option value="En Progreso">En Progreso</nb-option>
+          <nb-option value="Completada">Completada</nb-option>
+        </nb-select>
+  
+        <nb-select placeholder="Filtrar por usuario" [(ngModel)]="userFilter" (selectedChange)="filterTasks()" class="role-select">
+          <nb-option value="all">Todos los Usuarios</nb-option>
+          <nb-option *ngFor="let user of usersList" [value]="user.email">{{ user.name }}</nb-option>
+        </nb-select>
+      </div> 
+
+  
+      <ng2-smart-table
+        [settings]="settings"
+        [source]="source"
+        (editConfirm)="onEditConfirm($event)">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+  

@@ -1,0 +1,28 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .role-select {
+    min-width: 150px; 
+    max-width: 250px; 
+    width: auto; 
+    flex-grow: 1; 
+  }
+  
+  .add-user-button {
+    margin-left: 10px; 
+  }
+  
+  .filter-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    align-items: center;
+  }
+  
+  .create-task-button {
+    margin-bottom: 15px;
+  }
+  
